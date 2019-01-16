@@ -1557,7 +1557,8 @@ static int snd_pcm_oss_sync1(struct snd_pcm_substream *substream, size_t size)
 	ssize_t result = 0;
 	snd_pcm_state_t state;
 	long res;
-	wait_queue_t wait;
+	/* Patch 2 */
+	wait_queue_entry_t wait;
 
 	runtime = substream->runtime;
 	init_waitqueue_entry(&wait, current);

@@ -14,3 +14,10 @@ Commit Message 1:
 Patched deprecated 'posix_clock' to modern 'ktime'
 
 Error 2:
+unknown type name ‘wait_queue_t’
+Solution 2:
+Update to modern 'entry' naming scheme.
+Source:
+https://github.com/juliagoda/CH341SER
+Commit Message 2:
+Patched wait_queue to updated 'entry' naming scheme.
