@@ -32,6 +32,12 @@
 #include "seq_info.h"
 #include "seq_lock.h"
 
+/* Patch 6b */
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
+
 static inline int snd_seq_pool_available(struct snd_seq_pool *pool)
 {
 	return pool->total_elements - atomic_read(&pool->counter);
@@ -226,7 +232,8 @@ static int snd_seq_cell_alloc(struct snd_seq_pool *pool,
 	struct snd_seq_event_cell *cell;
 	unsigned long flags;
 	int err = -EAGAIN;
-	wait_queue_t wait;
+	/* Patch 6a */
+	wait_queue_entry_t wait;
 
 	if (pool == NULL)
 		return -EINVAL;

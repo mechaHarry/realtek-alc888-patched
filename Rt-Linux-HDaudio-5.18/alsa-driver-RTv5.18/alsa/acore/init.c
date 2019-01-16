@@ -999,7 +999,8 @@ EXPORT_SYMBOL(snd_card_file_remove);
  */
 int snd_power_wait(struct snd_card *card, unsigned int power_state)
 {
-	wait_queue_t wait;
+	/* Patch 6e */
+	wait_queue_entry_t wait;
 	int result = 0;
 
 	/* fastpath */

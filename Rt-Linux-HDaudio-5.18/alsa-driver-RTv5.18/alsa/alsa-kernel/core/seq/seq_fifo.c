@@ -24,6 +24,11 @@
 #include "seq_fifo.h"
 #include "seq_lock.h"
 
+/* Patch 6d */
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
 
 /* FIFO */
 
@@ -175,7 +180,8 @@ int snd_seq_fifo_cell_out(struct snd_seq_fifo *f,
 {
 	struct snd_seq_event_cell *cell;
 	unsigned long flags;
-	wait_queue_t wait;
+	/* Patch 6c */
+	wait_queue_entry_t wait;
 
 	if (snd_BUG_ON(!f))
 		return -EINVAL;
