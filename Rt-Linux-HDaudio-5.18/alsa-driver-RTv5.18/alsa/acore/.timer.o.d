@@ -1,5 +1,5 @@
-control.o: \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/control.c \
+timer.o: \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/timer.c \
  include/linux/kconfig.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/generated/autoconf.h \
  include/linux/compiler_types.h include/linux/compiler-gcc.h \
@@ -200,16 +200,20 @@ control.o: \
  include/linux/task_io_accounting.h include/uapi/linux/rseq.h \
  arch/x86/include/asm/device.h include/linux/pm_wakeup.h \
  include/linux/gameport.h include/linux/slab.h include/linux/kasan.h \
- include/uapi/linux/gameport.h include/linux/interrupt.h \
- include/linux/irqreturn.h include/linux/irqnr.h \
- include/uapi/linux/irqnr.h include/linux/hardirq.h \
+ include/uapi/linux/gameport.h include/linux/delay.h \
+ arch/x86/include/asm/delay.h include/asm-generic/delay.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/linux/smp_lock.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/core.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/timer.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/asound.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/uapi/sound/asound.h \
+ include/linux/interrupt.h include/linux/irqreturn.h \
+ include/linux/irqnr.h include/uapi/linux/irqnr.h include/linux/hardirq.h \
  include/linux/ftrace_irq.h include/linux/vtime.h \
  include/linux/context_tracking_state.h arch/x86/include/asm/irq.h \
  arch/x86/include/asm/sections.h include/asm-generic/sections.h \
  arch/x86/include/asm/extable.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/linux/smp_lock.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/core.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/minors.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/control.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/info.h \
  include/linux/poll.h include/linux/fs.h include/linux/wait_bit.h \
  include/linux/kdev_t.h include/uapi/linux/kdev_t.h \
@@ -236,11 +240,14 @@ control.o: \
  arch/x86/include/asm/smap.h arch/x86/include/asm/uaccess_64.h \
  include/uapi/linux/poll.h arch/x86/include/generated/uapi/asm/poll.h \
  include/uapi/asm-generic/poll.h include/uapi/linux/eventpoll.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/control.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/asound.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/uapi/sound/asound.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/control_compat.c \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/../alsa-kernel/core/control_compat.c \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/minors.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/initval.h \
+ include/linux/sched/signal.h include/linux/signal.h \
+ include/linux/sched/jobctl.h include/linux/sched/task.h \
+ include/linux/cred.h include/linux/key.h include/linux/assoc_array.h \
+ include/linux/selinux.h include/linux/sched/user.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/timer_compat.c \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/../alsa-kernel/core/timer_compat.c \
  include/linux/compat.h include/linux/compat_time.h \
  include/linux/socket.h arch/x86/include/uapi/asm/socket.h \
  include/uapi/asm-generic/socket.h arch/x86/include/uapi/asm/sockios.h \

@@ -36,6 +36,12 @@
 #include <sound/minors.h>
 #include <sound/initval.h>
 #include <linux/kmod.h>
+#include <linux/timer.h>
+
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
 
 #if defined(CONFIG_SND_HRTIMER) || defined(CONFIG_SND_HRTIMER_MODULE)
 #define DEFAULT_TIMER_LIMIT 4
@@ -44,6 +50,8 @@
 #else
 #define DEFAULT_TIMER_LIMIT 1
 #endif
+
+#define do_posix_clock_monotonic_gettime(ts) ktime_get_ts(ts)
 
 static int timer_limit = DEFAULT_TIMER_LIMIT;
 static int timer_tstamp_monotonic = 1;
@@ -1031,6 +1039,7 @@ static int snd_timer_register_system(void)
 		snd_timer_free(timer);
 		return -ENOMEM;
 	}
+	// TODO : What is the update to the deprecate init_timer, and what are _fn and _flags?
 	init_timer(&priv->tlist);
 	priv->tlist.function = snd_timer_s_function;
 	priv->tlist.data = (unsigned long) timer;
@@ -1854,7 +1863,7 @@ static ssize_t snd_timer_user_read(struct file *file, char __user *buffer,
 	spin_lock_irq(&tu->qlock);
 	while ((long)count - result >= unit) {
 		while (!tu->qused) {
-			wait_queue_t wait;
+			wait_queue_entry_t wait;
 
 			if ((file->f_flags & O_NONBLOCK) != 0 || result > 0) {
 				err = -EAGAIN;

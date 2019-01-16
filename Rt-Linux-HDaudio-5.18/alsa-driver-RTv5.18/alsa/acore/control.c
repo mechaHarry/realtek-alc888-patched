@@ -33,6 +33,11 @@
 #include <sound/info.h>
 #include <sound/control.h>
 
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
+
 /* max number of user-defined controls */
 #define MAX_USER_CONTROLS	32
 #define MAX_CONTROL_COUNT	1028
@@ -1440,7 +1445,7 @@ static ssize_t snd_ctl_read(struct file *file, char __user *buffer,
 		struct snd_ctl_event ev;
 		struct snd_kctl_event *kev;
 		while (list_empty(&ctl->events)) {
-			wait_queue_t wait;
+			wait_queue_entry_t wait;
 			if ((file->f_flags & O_NONBLOCK) != 0 || result > 0) {
 				err = -EAGAIN;
 				goto __end_lock;

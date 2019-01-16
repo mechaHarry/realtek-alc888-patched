@@ -33,6 +33,11 @@
 #include <sound/hwdep.h>
 #include <sound/info.h>
 
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
+
 MODULE_AUTHOR("Jaroslav Kysela <perex@perex.cz>");
 MODULE_DESCRIPTION("Hardware dependent layer");
 MODULE_LICENSE("GPL");
@@ -87,7 +92,7 @@ static int snd_hwdep_open(struct inode *inode, struct file * file)
 	int major = imajor(inode);
 	struct snd_hwdep *hw;
 	int err;
-	wait_queue_t wait;
+	wait_queue_entry_t wait;
 
 	if (major == snd_major) {
 		hw = snd_lookup_minor_data(iminor(inode),
