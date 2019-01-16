@@ -53,3 +53,19 @@ Note:
 A pattern of similar errors has surfaced.
 Until newer/unencountered/notable errors occur,
 we will refer to similar error fixes as Patch '#'.
+
+Error 6:
+dereferencing pointer to incomplete type 'struct task_struct'
+Solution 6:
+According to source[0] below, an incomplete pointer is forward declared
+and must know beforehand what memory is needed for the struct in order to compile.
+A google query about what header defines 'task_struct' for us leads to source[1],
+which is an email exchange stating it is bad practice to directly pull from /asm/uaccess.h
+and should instead pull from /linux/uaccess.h for the sake of being architecture agnostic.
+source[0] also concludes that this solution is also more user code friendly.
+An alternative solution may be to pull from /linux/sched.h, but this may also result in an incomplete pointer.
+Source:
+[0] : https://stackoverflow.com/questions/38355494/why-instead-of-adding-includelinux-sched-h-in-my-code-the-code-cannot-ident
+[1] : https://lkml.org/lkml/2017/9/30/189
+Commit Message 6:
+Patch 7: Replaced Assembly header with architecture agnostic header.

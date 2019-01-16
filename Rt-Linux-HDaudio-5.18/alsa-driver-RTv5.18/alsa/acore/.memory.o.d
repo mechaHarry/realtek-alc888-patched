@@ -117,13 +117,10 @@ memory.o: \
  include/asm-generic/qrwlock.h include/linux/rwlock.h \
  include/linux/spinlock_api_smp.h include/linux/rwlock_api_smp.h \
  include/linux/llist.h include/linux/rbtree.h include/linux/rcupdate.h \
- include/linux/rcutree.h include/linux/overflow.h \
- arch/x86/include/asm/uaccess.h arch/x86/include/asm/smap.h \
- arch/x86/include/asm/extable.h arch/x86/include/asm/uaccess_64.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/core.h \
- include/linux/sched.h include/uapi/linux/sched.h include/linux/pid.h \
- include/linux/rculist.h include/linux/sem.h include/uapi/linux/sem.h \
- include/linux/ipc.h include/linux/uidgid.h include/linux/highuid.h \
+ include/linux/rcutree.h include/linux/overflow.h include/linux/sched.h \
+ include/uapi/linux/sched.h include/linux/pid.h include/linux/rculist.h \
+ include/linux/sem.h include/uapi/linux/sem.h include/linux/ipc.h \
+ include/linux/uidgid.h include/linux/highuid.h \
  include/linux/rhashtable.h include/linux/errno.h \
  include/uapi/linux/errno.h include/linux/jhash.h \
  include/linux/unaligned/packed_struct.h include/linux/list_nulls.h \
@@ -175,5 +172,6 @@ memory.o: \
  arch/x86/include/uapi/asm/siginfo.h include/uapi/asm-generic/siginfo.h \
  include/linux/mm_types_task.h arch/x86/include/asm/tlbbatch.h \
  include/linux/task_io_accounting.h include/uapi/linux/rseq.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/core.h \
  include/linux/pm.h include/linux/wait.h include/uapi/linux/wait.h \
  include/linux/completion.h
