@@ -1,0 +1,16 @@
+Download & Extract: 
+https://www.realtek.com/en/component/zoo/category/pc-audio-codecs-high-definition-audio-codecs-software
+
+./configure --with-cards=hda-intel
+make
+
+Error 1:
+implicit declaration of function ‘do_posix_clock_monotonic_gettime’
+Solution 1:
+Define the deprecated call to be ktime_get_ts(ts)
+Source:
+https://unix.stackexchange.com/questions/309376/do-posix-clock-monotonic-gettime-is-missing-in-linux-time-h
+Commit Message 1:
+Patched deprecated 'posix_clock' to modern 'ktime'
+
+Error 2:
