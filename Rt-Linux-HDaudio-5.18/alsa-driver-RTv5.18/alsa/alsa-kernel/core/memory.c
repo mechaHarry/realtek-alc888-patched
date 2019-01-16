@@ -25,6 +25,10 @@
 /* Patch 7 */
 #include <linux/sched.h>
 // #include <asm/uaccess.h>
+
+/* Patch 8 */
+#include <linux/uaccess.h>
+
 #include <sound/core.h>
 
 /**
