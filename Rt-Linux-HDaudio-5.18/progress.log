@@ -21,3 +21,12 @@ Source:
 https://github.com/juliagoda/CH341SER
 Commit Message 2:
 Patched wait_queue to updated 'entry' naming scheme.
+
+Error 3:
+implicit declaration of function ‘signal_pending’
+Solution 3:
+Add in decisioning for included libraries for signal handling.
+Source:
+https://forum.manjaro.org/t/solved-error-with-rtl8812au/24066/4
+Commit Message 3:
+Patched pcm_oss.c to include signal.h when compatible.

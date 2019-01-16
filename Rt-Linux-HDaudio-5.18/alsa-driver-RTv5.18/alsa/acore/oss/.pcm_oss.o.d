@@ -250,4 +250,8 @@ pcm_oss.o: \
  include/linux/soundcard.h include/uapi/linux/soundcard.h \
  include/linux/patchkey.h include/uapi/linux/patchkey.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/initval.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/mixer_oss.h
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/mixer_oss.h \
+ include/linux/sched/signal.h include/linux/signal.h \
+ include/linux/sched/jobctl.h include/linux/sched/task.h \
+ include/linux/cred.h include/linux/key.h include/linux/assoc_array.h \
+ include/linux/selinux.h include/linux/sched/user.h

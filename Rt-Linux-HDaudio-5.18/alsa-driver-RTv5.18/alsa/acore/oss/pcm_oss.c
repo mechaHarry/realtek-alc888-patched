@@ -45,6 +45,12 @@
 #include <sound/initval.h>
 #include <sound/mixer_oss.h>
 
+/* Patch 3 */
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
+
 #define OSS_ALSAEMULVER		_SIOR ('M', 249, int)
 
 static int dsp_map[SNDRV_CARDS];
