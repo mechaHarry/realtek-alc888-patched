@@ -69,3 +69,13 @@ Source:
 [1] : https://lkml.org/lkml/2017/9/30/189
 Commit Message 6:
 Patch 7: Replaced Assembly header with architecture agnostic header.
+
+Error 7:
+implicit declaration of function ‘copy_to_user’
+Solution 7:
+Seems to be a similar case with Error 6.
+Include an architecture agnostic copy of the uaccess header.
+Source:
+https://stackoverflow.com/questions/46302524/copy-to-user-undefined-in-linux-kernel-version-4-12-8
+Commit Message 7:
+Patch 8: Patching with more agnostic headers.
