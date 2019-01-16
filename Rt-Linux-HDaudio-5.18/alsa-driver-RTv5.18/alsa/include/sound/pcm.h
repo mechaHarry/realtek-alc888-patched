@@ -1,5 +1,7 @@
 #ifndef __SOUND_PCM_H
 #define __SOUND_PCM_H
+/* Patch 1 */
+#define do_posix_clock_monotonic_gettime(ts) ktime_get_ts(ts)
 
 /*
  *  Digital Audio (PCM) abstract layer
