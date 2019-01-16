@@ -48,3 +48,8 @@ Source:
 Solution 3.
 Commit Message 5:
 Patched another signal call.
+
+Note:
+A pattern of similar errors has surfaced.
+Until newer/unencountered/notable errors occur,
+we will refer to similar error fixes as Patch '#'.
