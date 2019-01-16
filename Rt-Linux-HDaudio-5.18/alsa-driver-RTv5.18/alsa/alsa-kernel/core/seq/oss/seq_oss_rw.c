@@ -29,6 +29,11 @@
 #include "seq_oss_timer.h"
 #include "../seq_clientmgr.h"
 
+/* Patch 5b */
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
 
 /*
  * protoypes

@@ -1,4 +1,4 @@
-kernel//home/johnny/Rtk_Release/alsa-driver-RTv5.18/alsa/acore/seq/snd-seq.ko
-kernel//home/johnny/Rtk_Release/alsa-driver-RTv5.18/alsa/acore/seq/snd-seq-device.ko
-kernel//home/johnny/Rtk_Release/alsa-driver-RTv5.18/alsa/acore/seq/snd-seq-midi-event.ko
-kernel//home/johnny/Rtk_Release/alsa-driver-RTv5.18/alsa/acore/seq/oss/snd-seq-oss.ko
+kernel//home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/snd-seq.ko
+kernel//home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/snd-seq-device.ko
+kernel//home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/snd-seq-midi-event.ko
+kernel//home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/snd-seq-oss.ko

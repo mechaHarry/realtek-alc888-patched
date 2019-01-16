@@ -29,6 +29,11 @@
 #include <linux/wait.h>
 #include <linux/slab.h>
 
+/* Patch 5c */
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
 
 /*
  * create a write queue record

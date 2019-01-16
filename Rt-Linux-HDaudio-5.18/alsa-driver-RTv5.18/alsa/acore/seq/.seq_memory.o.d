@@ -1,5 +1,5 @@
-seq_oss_ioctl.o: \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/seq_oss_ioctl.c \
+seq_memory.o: \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/seq_memory.c \
  include/linux/kconfig.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/generated/autoconf.h \
  include/linux/compiler_types.h include/linux/compiler-gcc.h \
@@ -201,24 +201,14 @@ seq_oss_ioctl.o: \
  arch/x86/include/asm/device.h include/linux/pm_wakeup.h \
  include/linux/gameport.h include/linux/slab.h include/linux/kasan.h \
  include/uapi/linux/gameport.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_ioctl.c \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_device.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/../../alsa-kernel/core/seq/seq_memory.c \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/core.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/seq_oss.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/seq_kernel.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/asequencer.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/asound.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/uapi/sound/asound.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/uapi/sound/asequencer.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/seq_kernel.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/rawmidi.h \
- include/linux/interrupt.h include/linux/irqreturn.h \
- include/linux/irqnr.h include/uapi/linux/irqnr.h include/linux/hardirq.h \
- include/linux/ftrace_irq.h include/linux/vtime.h \
- include/linux/context_tracking_state.h arch/x86/include/asm/irq.h \
- arch/x86/include/asm/sections.h include/asm-generic/sections.h \
- arch/x86/include/asm/extable.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/seq_device.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/info.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/../../alsa-kernel/core/seq/seq_memory.h \
  include/linux/poll.h include/linux/fs.h include/linux/wait_bit.h \
  include/linux/kdev_t.h include/uapi/linux/kdev_t.h \
  include/linux/dcache.h include/linux/rculist_bl.h \
@@ -241,15 +231,19 @@ seq_oss_ioctl.o: \
  include/linux/dqblk_qtree.h include/linux/projid.h \
  include/uapi/linux/quota.h include/linux/nfs_fs_i.h \
  include/linux/uaccess.h arch/x86/include/asm/uaccess.h \
- arch/x86/include/asm/smap.h arch/x86/include/asm/uaccess_64.h \
- include/uapi/linux/poll.h arch/x86/include/generated/uapi/asm/poll.h \
+ arch/x86/include/asm/smap.h arch/x86/include/asm/extable.h \
+ arch/x86/include/asm/uaccess_64.h include/uapi/linux/poll.h \
+ arch/x86/include/generated/uapi/asm/poll.h \
  include/uapi/asm-generic/poll.h include/uapi/linux/eventpoll.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_readq.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_writeq.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_timer.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_synth.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/seq_oss_legacy.h \
- include/linux/soundcard.h include/uapi/linux/soundcard.h \
- include/linux/patchkey.h include/uapi/linux/patchkey.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_midi.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/oss/../../../alsa-kernel/core/seq/oss/seq_oss_event.h
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/../../alsa-kernel/core/seq/seq_queue.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/../../alsa-kernel/core/seq/seq_prioq.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/../../alsa-kernel/core/seq/seq_timer.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/timer.h \
+ include/linux/interrupt.h include/linux/irqreturn.h \
+ include/linux/irqnr.h include/uapi/linux/irqnr.h include/linux/hardirq.h \
+ include/linux/ftrace_irq.h include/linux/vtime.h \
+ include/linux/context_tracking_state.h arch/x86/include/asm/irq.h \
+ arch/x86/include/asm/sections.h include/asm-generic/sections.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/../../alsa-kernel/core/seq/seq_lock.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/seq/../../alsa-kernel/core/seq/seq_info.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/info.h

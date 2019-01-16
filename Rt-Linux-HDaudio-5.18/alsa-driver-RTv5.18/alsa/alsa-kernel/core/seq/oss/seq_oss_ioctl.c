@@ -28,6 +28,12 @@
 #include "seq_oss_midi.h"
 #include "seq_oss_event.h"
 
+/* Patch 5a */
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
+
 static int snd_seq_oss_synth_info_user(struct seq_oss_devinfo *dp, void __user *arg)
 {
 	struct synth_info info;

@@ -39,3 +39,12 @@ Source:
 Solution 2.
 Commit Message 4:
 Patched additional wait_queue naming schemes.
+
+Error 5:
+implicit declaration of function ‘signal_pending’
+Solution 5:
+Repeat of Solution 3.
+Source:
+Solution 3.
+Commit Message 5:
+Patched another signal call.
