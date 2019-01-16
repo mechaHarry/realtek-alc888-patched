@@ -1,0 +1,56 @@
+--- ../../alsa-kernel/core/oss/mixer_oss.c	2011-11-08 07:59:20.000000000 +0100
++++ mixer_oss.c	2012-07-19 13:58:22.000000000 +0200
+@@ -1,3 +1,4 @@
++#include "adriver.h"
+ /*
+  *  OSS emulation layer for the mixer interface
+  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
+@@ -20,6 +21,7 @@
+  */
+ 
+ #include <linux/init.h>
++#include <linux/smp_lock.h>
+ #include <linux/slab.h>
+ #include <linux/time.h>
+ #include <linux/string.h>
+@@ -388,13 +390,26 @@
+ 	return snd_mixer_oss_ioctl1(&fmixer, cmd, arg);
+ }
+ 
+-#ifdef CONFIG_COMPAT
++#if defined(CONFIG_COMPAT) && defined(CONFIG_SND_HAVE_NEW_IOCTL)
+ /* all compatible */
+ #define snd_mixer_oss_ioctl_compat	snd_mixer_oss_ioctl
+ #else
+ #define snd_mixer_oss_ioctl_compat	NULL
+ #endif
+ 
++#ifndef CONFIG_SND_HAVE_NEW_IOCTL
++/* need to unlock BKL to allow preemption */
++static int snd_mixer_oss_ioctl_old(struct inode *inode, struct file * file,
++				   unsigned int cmd, unsigned long arg)
++{
++	int err;
++	unlock_kernel();
++	err = snd_mixer_oss_ioctl(file, cmd, arg);
++	lock_kernel();
++	return err;
++}
++#endif
++
+ /*
+  *  REGISTRATION PART
+  */
+@@ -405,8 +420,12 @@
+ 	.open =		snd_mixer_oss_open,
+ 	.release =	snd_mixer_oss_release,
+ 	.llseek =	no_llseek,
++#ifdef CONFIG_SND_HAVE_NEW_IOCTL
+ 	.unlocked_ioctl =	snd_mixer_oss_ioctl,
+ 	.compat_ioctl =	snd_mixer_oss_ioctl_compat,
++#else
++	.ioctl =	snd_mixer_oss_ioctl_old,
++#endif	
+ };
+ 
+ /*

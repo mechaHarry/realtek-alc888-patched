@@ -1,0 +1,66 @@
+--- ../alsa-kernel/pci/via82xx.c	2012-04-24 12:18:48.000000000 +0200
++++ via82xx.c	2012-04-24 12:32:51.000000000 +0200
+@@ -1,3 +1,4 @@
++#include "adriver.h"
+ /*
+  *   ALSA driver for VIA VT82xx (South Bridge)
+  *
+@@ -2513,6 +2514,7 @@
+ 	int chip_type = 0, card_type;
+ 	unsigned int i;
+ 	int err;
++	unsigned char revision = snd_pci_revision(pci);
+ 
+ 	err = snd_card_create(index, id, THIS_MODULE, 0, &card);
+ 	if (err < 0)
+@@ -2522,14 +2524,14 @@
+ 	switch (card_type) {
+ 	case TYPE_CARD_VIA686:
+ 		strcpy(card->driver, "VIA686A");
+-		sprintf(card->shortname, "VIA 82C686A/B rev%x", pci->revision);
++		sprintf(card->shortname, "VIA 82C686A/B rev%x", revision);
+ 		chip_type = TYPE_VIA686;
+ 		break;
+ 	case TYPE_CARD_VIA8233:
+ 		chip_type = TYPE_VIA8233;
+-		sprintf(card->shortname, "VIA 823x rev%x", pci->revision);
++		sprintf(card->shortname, "VIA 823x rev%x", revision);
+ 		for (i = 0; i < ARRAY_SIZE(via823x_cards); i++) {
+-			if (pci->revision == via823x_cards[i].revision) {
++			if (revision == via823x_cards[i].revision) {
+ 				chip_type = via823x_cards[i].type;
+ 				strcpy(card->shortname, via823x_cards[i].name);
+ 				break;
+@@ -2537,7 +2539,7 @@
+ 		}
+ 		if (chip_type != TYPE_VIA8233A) {
+ 			if (dxs_support == VIA_DXS_AUTO)
+-				dxs_support = check_dxs_list(pci, pci->revision);
++				dxs_support = check_dxs_list(pci, revision);
+ 			/* force to use VIA8233 or 8233A model according to
+ 			 * dxs_support module option
+ 			 */
+@@ -2548,7 +2550,7 @@
+ 		}
+ 		if (chip_type == TYPE_VIA8233A)
+ 			strcpy(card->driver, "VIA8233A");
+-		else if (pci->revision >= VIA_REV_8237)
++		else if (revision >= VIA_REV_8237)
+ 			strcpy(card->driver, "VIA8237"); /* no slog assignment */
+ 		else
+ 			strcpy(card->driver, "VIA8233");
+@@ -2559,7 +2561,7 @@
+ 		goto __error;
+ 	}
+ 		
+-	if ((err = snd_via82xx_create(card, pci, chip_type, pci->revision,
++	if ((err = snd_via82xx_create(card, pci, chip_type, revision,
+ 				      ac97_clock, &chip)) < 0)
+ 		goto __error;
+ 	card->private_data = chip;
+@@ -2631,3 +2633,5 @@
+ };
+ 
+ module_pci_driver(via82xx_driver);
++
++EXPORT_NO_SYMBOLS;

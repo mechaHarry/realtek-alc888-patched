@@ -1,0 +1,138 @@
+--- ../alsa-kernel/core/sound.c	2012-09-05 09:19:31.000000000 +0200
++++ sound.c	2012-10-15 10:58:19.000000000 +0200
+@@ -1,3 +1,4 @@
++#include "adriver.h"
+ /*
+  *  Advanced Linux Sound Architecture
+  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
+@@ -289,8 +290,18 @@
+ 		return minor;
+ 	}
+ 	snd_minors[minor] = preg;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 20)
++#ifdef CONFIG_SND_HAS_DEVICE_CREATE_DRVDATA
++	preg->dev = device_create_drvdata(sound_class, device,
++					  MKDEV(major, minor),
++					  private_data, "%s", name);
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 27)
+ 	preg->dev = device_create(sound_class, device, MKDEV(major, minor),
+ 				  private_data, "%s", name);
++#else
++  	preg->dev = device_create(sound_class, device, MKDEV(major, minor),
++  				  "%s", name);
++#endif /* SND_HAS_DEVICE_CREATE_DRVDATA */
+ 	if (IS_ERR(preg->dev)) {
+ 		snd_minors[minor] = NULL;
+ 		mutex_unlock(&sound_mutex);
+@@ -298,6 +309,22 @@
+ 		kfree(preg);
+ 		return minor;
+ 	}
++#if LINUX_VERSION_CODE <= KERNEL_VERSION(2, 6, 26) && \
++	!defined(CONFIG_SND_HAS_DEVICE_CREATE_DRVDATA)
++  	if (preg->dev)
++  		dev_set_drvdata(preg->dev, private_data);
++#endif
++
++#elif defined(CONFIG_SND_HAVE_CLASS_SIMPLE)
++	class_simple_device_add((struct class_simple *)sound_class,
++				MKDEV(major, minor), device, name);
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 2)
++	preg->dev = (struct device *)class_device_create(sound_class, NULL,
++							 MKDEV(major, minor),
++						         device, "%s", name);
++	if (preg->dev)
++		class_set_devdata((struct class_device *)preg->dev, private_data);
++#endif /* 2.6.20 */
+ 
+ 	mutex_unlock(&sound_mutex);
+ 	return 0;
+@@ -345,7 +372,13 @@
+ 		return -EINVAL;
+ 	}
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 20)
+ 	device_destroy(sound_class, MKDEV(major, minor));
++#elif defined(CONFIG_SND_HAVE_CLASS_SIMPLE)
++	class_simple_device_remove(MKDEV(major, minor));
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 2)
++	class_device_destroy(sound_class, MKDEV(major, minor));
++#endif
+ 
+ 	kfree(snd_minors[minor]);
+ 	snd_minors[minor] = NULL;
+@@ -358,16 +391,28 @@
+ int snd_add_device_sysfs_file(int type, struct snd_card *card, int dev,
+ 			      struct device_attribute *attr)
+ {
++#if defined(CONFIG_SND_HAVE_CLASS_SIMPLE) || LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 2)
++	return -EINVAL;
++#else
+ 	int minor, ret = -EINVAL;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 20)
+ 	struct device *d;
++#else
++	struct class_device *d;
++#endif
+ 
+ 	mutex_lock(&sound_mutex);
+ 	minor = find_snd_minor(type, card, dev);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 20)
+ 	if (minor >= 0 && (d = snd_minors[minor]->dev) != NULL)
+ 		ret = device_create_file(d, attr);
++#else
++	if (minor >= 0 && (d = (struct class_device *)snd_minors[minor]->dev) != NULL)
++		ret = class_device_create_file(d, (const struct class_device_attribute *)attr);
++#endif
+ 	mutex_unlock(&sound_mutex);
+ 	return ret;
+-
++#endif
+ }
+ 
+ EXPORT_SYMBOL(snd_add_device_sysfs_file);
+@@ -453,6 +498,19 @@
+  *  INIT PART
+  */
+ 
++#ifdef CONFIG_SND_DEBUG_MEMORY
++extern void snd_memory_done(void);
++#else
++#define snd_memory_done()
++#endif
++#if defined(CONFIG_SND_DEBUG_MEMORY) && defined(CONFIG_PROC_FS)
++extern int snd_memory_info_init(void);
++extern void snd_memory_info_done(void);
++#else
++#define snd_memory_info_init()
++#define snd_memory_info_done()
++#endif
++
+ static int __init alsa_sound_init(void)
+ {
+ 	snd_major = major;
+@@ -463,8 +521,10 @@
+ 	}
+ 	if (snd_info_init() < 0) {
+ 		unregister_chrdev(major, "alsa");
++		snd_memory_done();
+ 		return -ENOMEM;
+ 	}
++	snd_memory_info_init();
+ 	snd_info_minor_register();
+ #ifndef MODULE
+ 	printk(KERN_INFO "Advanced Linux Sound Architecture Driver Initialized.\n");
+@@ -475,9 +535,13 @@
+ static void __exit alsa_sound_exit(void)
+ {
+ 	snd_info_minor_unregister();
++	snd_memory_info_done();
+ 	snd_info_done();
+ 	unregister_chrdev(major, "alsa");
++	snd_memory_done();
+ }
+ 
+ subsys_initcall(alsa_sound_init);
+ module_exit(alsa_sound_exit);
++
++#include "sound.inc"

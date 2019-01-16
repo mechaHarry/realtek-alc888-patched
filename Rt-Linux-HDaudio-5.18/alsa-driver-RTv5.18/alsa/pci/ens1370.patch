@@ -1,0 +1,22 @@
+--- ../alsa-kernel/pci/ens1370.c	2012-04-24 12:18:48.000000000 +0200
++++ ens1370.c	2012-04-24 12:30:57.000000000 +0200
+@@ -1,3 +1,4 @@
++#include "adriver.h"
+ /*
+  *  Driver for Ensoniq ES1370/ES1371 AudioPCI soundcard
+  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>,
+@@ -2135,7 +2136,7 @@
+ 	}
+ #endif
+ 	pci_set_master(pci);
+-	ensoniq->rev = pci->revision;
++	ensoniq->rev = snd_pci_revision(pci);
+ #ifdef CHIP1370
+ #if 0
+ 	ensoniq->ctrl = ES_1370_CDC_EN | ES_1370_SERR_DISABLE |
+@@ -2500,3 +2501,5 @@
+ };
+ 	
+ module_pci_driver(ens137x_driver);
++
++EXPORT_NO_SYMBOLS;

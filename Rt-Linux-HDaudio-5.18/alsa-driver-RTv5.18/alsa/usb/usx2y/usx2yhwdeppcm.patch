@@ -1,0 +1,17 @@
+--- ../../alsa-kernel/usb/usx2y/usx2yhwdeppcm.c	2013-04-29 11:45:04.825944327 +0200
++++ usx2yhwdeppcm.c	2013-04-29 18:04:28.975941611 +0200
+@@ -1,3 +1,4 @@
++#include "usx2yhwdeppcm.inc"
+ /*
+  *   This program is free software; you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -443,6 +444,9 @@
+ 					if (0 == u)
+ 						atomic_set(&subs->state, state_STARTING3);
+ 					urb->dev = usX2Y->dev;
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 8, 0)
++					urb->transfer_flags = URB_ISO_ASAP;
++#endif
+ 					for (pack = 0; pack < nr_of_packs(); pack++) {
+ 						urb->iso_frame_desc[pack].offset = subs->maxpacksize * (pack + u * nr_of_packs());
+ 						urb->iso_frame_desc[pack].length = subs->maxpacksize;

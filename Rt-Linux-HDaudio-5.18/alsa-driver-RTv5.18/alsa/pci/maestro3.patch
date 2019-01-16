@@ -1,0 +1,39 @@
+--- ../alsa-kernel/pci/maestro3.c	2012-04-24 12:18:48.000000000 +0200
++++ maestro3.c	2012-04-24 12:32:22.000000000 +0200
+@@ -1,3 +1,4 @@
++#include "adriver.h"
+ /*
+  * Driver for ESS Maestro3/Allegro (ES1988) soundcards.
+  * Copyright (c) 2000 by Zach Brown <zab@zabbo.net>
+@@ -2677,15 +2678,25 @@
+ 		return -ENOMEM;
+ 	}
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 5, 0)
+ 	err = request_firmware(&chip->assp_kernel_image,
+ 			       "ess/maestro3_assp_kernel.fw", &pci->dev);
++#else
++	err = request_firmware(&chip->assp_kernel_image,
++			       "ess/maestro3_assp_kernel.fw", pci_name(pci));
++#endif
+ 	if (err < 0) {
+ 		snd_m3_free(chip);
+ 		return err;
+ 	}
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 5, 0)
+ 	err = request_firmware(&chip->assp_minisrc_image,
+ 			       "ess/maestro3_assp_minisrc.fw", &pci->dev);
++#else
++	err = request_firmware(&chip->assp_kernel_image,
++			       "ess/maestro3_assp_minisrc.fw", pci_name(pci));
++#endif
+ 	if (err < 0) {
+ 		snd_m3_free(chip);
+ 		return err;
+@@ -2849,3 +2860,5 @@
+ };
+ 	
+ module_pci_driver(m3_driver);
++
++EXPORT_NO_SYMBOLS;

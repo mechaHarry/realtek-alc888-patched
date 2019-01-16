@@ -1,0 +1,10 @@
+bc1782580872fe3f6dbb40eedcffc301222c2490 Fix build error in acore/info.c
+8754f986cc00f98a15f7baabcc1cdfe7900ec3a1 Add forgotten files to clean up in usb/usx2y/Makefile
+7e26e6246e86fc765a23a3653d98b8b6d2151440 Update usb patch files
+c6597c238866dfdbe796de5b4b70b36aee6f6720 Fix build of pcm_native.c
+3850dbb45a04688e145f2eaccf25035c9ba0033d Refresh usb/helper.patch
+f2e2f136cb3318a464509b2610548856d4b1285d Refresh usb/usbcompat.h for missing usb_autopm_*()
+29e5eadcadc11b89032c4d7a262e1844c17a2301 Refresh usb/card.patch
+63c070798a921411d493a83a54c7de1548fdb8db Refresh usb/caiaq/device.patch and input.patch
+c75eef95c07ebfc5543f1c64d7d00b82f41152ba Refresh acore/pcm_native.patch
+30b9f704141e591a45a0511f22b0883e7ca277de Refresh pci/hda/hda_intel.patch

@@ -1,0 +1,10 @@
+f43e7a34255a387930bc2bb826ec17c052ce975e Merge branch 'for-next'
+63e51fd708f511a5989da04c669647993bc1a512 ALSA: hda - Don't take unresponsive D3 transition too serious
+e7ecc27e520a9c9891362c6dabd18c4da9885946 ALSA: hda - Introduce bit flags to snd_hda_codec_read/write()
+36bb00d4b2463b0b8b37fb0ce753813bf729b997 ALSA: hda - Drop hard dependency on CONFIG_SND_DYNAMIC_MINORS
+55b019bef940a7cd968cb4d0ec0358eb20b47912 Merge branch 'for-next'
+2c38d990fbdfc76176b03d60bc5e1a93d270760d ALSA: hda/via - Use standard snd_hda_shutup_pins()
+c9e34d1525ffd554f29dc01674eac279de2e759d Merge branch 'for-linus' into for-next
+97a934ef849ffa37b10e262a68eab137ee75aebe Merge branch 'for-next'
+02b504d9d8e565081b99176e7e464821d76fc994 ALSA: hda - add mic fixup for ALC269VB on Ordissimo EVE2
+0c1182ba00dd1a2c85df99216367b476b7d6557f Merge branch 'for-linus'

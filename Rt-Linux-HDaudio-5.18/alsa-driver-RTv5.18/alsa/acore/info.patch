@@ -1,0 +1,194 @@
+--- ../alsa-kernel/core/info.c	2013-05-13 10:01:02.042914933 +0200
++++ info.c	2013-05-13 10:18:58.422914805 +0200
+@@ -1,3 +1,7 @@
++#define __NO_VERSION__
++#include "adriver.h"
++#include "alsa-autoconf.h"
++
+ /*
+  *  Information interface for ALSA driver
+  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
+@@ -89,10 +93,18 @@
+ 	char *nbuf;
+ 
+ 	nsize = PAGE_ALIGN(nsize);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 22) || \
++	defined(CONFIG_SND_DEBUG_MEMORY)
++	nbuf = kzalloc(nsize, GFP_KERNEL);
++	if (!nbuf)
++		return -ENOMEM;
++	memcpy(nbuf, buffer->buffer, buffer->len);
++	kfree(buffer->buffer);
++#else	
+ 	nbuf = krealloc(buffer->buffer, nsize, GFP_KERNEL | __GFP_ZERO);
+ 	if (! nbuf)
+ 		return -ENOMEM;
+-
++#endif
+ 	buffer->buffer = nbuf;
+ 	buffer->len = nsize;
+ 	return 0;
+@@ -153,6 +165,25 @@
+ struct snd_info_entry *snd_oss_root;
+ #endif
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0)
++static void snd_remove_proc_entry(struct proc_dir_entry *parent,
++				  struct proc_dir_entry *de)
++{
++	if (de)
++		remove_proc_entry(de->name, parent);
++}
++
++#define proc_set_size(p, s)	((p)->size = (s))
++
++static void *PDE_DATA(struct inode *inode)
++{
++	struct proc_dir_entry *p = PDE(inode);
++	if (p)
++		return p->data;
++	return NULL;
++}	
++#endif
++
+ static loff_t snd_info_entry_llseek(struct file *file, loff_t offset, int orig)
+ {
+ 	struct snd_info_private_data *data;
+@@ -485,9 +516,28 @@
+ 	return -ENOTTY;
+ }
+ 
++#ifndef CONFIG_SND_HAVE_NEW_IOCTL
++/* need to unlock BKL to allow preemption */
++static int snd_info_entry_ioctl_old(struct inode *inode, struct file * file,
++				    unsigned int cmd, unsigned long arg)
++{
++	int err;
++	unlock_kernel();
++	err = snd_info_entry_ioctl(file, cmd, arg);
++	lock_kernel();
++	return err;
++}
++#endif
++
+ static int snd_info_entry_mmap(struct file *file, struct vm_area_struct *vma)
+ {
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 9, 0)
+ 	struct inode *inode = file_inode(file);
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 20)
++	struct inode *inode = file->f_path.dentry->d_inode;
++#else
++	struct inode *inode = file->f_dentry->d_inode;
++#endif
+ 	struct snd_info_private_data *data;
+ 	struct snd_info_entry *entry;
+ 
+@@ -513,7 +563,11 @@
+ 	.read =			snd_info_entry_read,
+ 	.write =		snd_info_entry_write,
+ 	.poll =			snd_info_entry_poll,
++#ifdef CONFIG_SND_HAVE_NEW_IOCTL
+ 	.unlocked_ioctl =	snd_info_entry_ioctl,
++#else
++	.ioctl =		snd_info_entry_ioctl_old,
++#endif
+ 	.mmap =			snd_info_entry_mmap,
+ 	.open =			snd_info_entry_open,
+ 	.release =		snd_info_entry_release,
+@@ -573,7 +627,11 @@
+ #ifdef CONFIG_SND_OSSEMUL
+ 		snd_info_free_entry(snd_oss_root);
+ #endif
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0)
++		snd_remove_proc_entry(NULL, snd_proc_root);
++#else
+ 		proc_remove(snd_proc_root);
++#endif
+ 	}
+ 	return 0;
+ }
+@@ -635,7 +693,11 @@
+ {
+ 	mutex_lock(&info_mutex);
+ 	if (card->proc_root_link) {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0)
++		snd_remove_proc_entry(snd_proc_root, card->proc_root_link);
++#else
+ 		proc_remove(card->proc_root_link);
++#endif
+ 		card->proc_root_link = NULL;
+ 	}
+ 	if (strcmp(card->id, card->proc_root->name))
+@@ -654,7 +716,11 @@
+ 	if (!card)
+ 		return;
+ 	mutex_lock(&info_mutex);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0)
++	snd_remove_proc_entry(snd_proc_root, card->proc_root_link);
++#else
+ 	proc_remove(card->proc_root_link);
++#endif
+ 	card->proc_root_link = NULL;
+ 	if (card->proc_root)
+ 		snd_info_disconnect(card->proc_root);
+@@ -842,7 +908,11 @@
+ 	list_del_init(&entry->list);
+ 	root = entry->parent == NULL ? snd_proc_root : entry->parent->p;
+ 	snd_BUG_ON(!root);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0)
++	snd_remove_proc_entry(root, entry->p);
++#else
+ 	proc_remove(entry->p);
++#endif
+ 	entry->p = NULL;
+ }
+ 
+@@ -943,6 +1013,17 @@
+ 		return -ENXIO;
+ 	root = entry->parent == NULL ? snd_proc_root : entry->parent->p;
+ 	mutex_lock(&info_mutex);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0)
++	p = create_proc_entry(entry->name, entry->mode, root);
++	if (!p) {
++		mutex_unlock(&info_mutex);
++		return -ENOMEM;
++	}
++	if (!S_ISDIR(entry->mode))
++		p->proc_fops = &snd_info_entry_operations;
++	p->size = entry->size;
++	p->data = entry;
++#else
+ 	if (S_ISDIR(entry->mode)) {
+ 		p = proc_mkdir_mode(entry->name, entry->mode, root);
+ 		if (!p) {
+@@ -958,6 +1039,7 @@
+ 		}
+ 		proc_set_size(p, entry->size);
+ 	}
++#endif
+ 	entry->p = p;
+ 	if (entry->parent)
+ 		list_add_tail(&entry->list, &entry->parent->children);
+@@ -975,9 +1057,20 @@
+ 
+ static void snd_info_version_read(struct snd_info_entry *entry, struct snd_info_buffer *buffer)
+ {
++	static char *kernel_version = UTS_RELEASE;
++
+ 	snd_iprintf(buffer,
+-		    "Advanced Linux Sound Architecture Driver Version k%s.\n",
+-		    init_utsname()->release);
++		    "Advanced Linux Sound Architecture Driver Version "
++		    CONFIG_SND_VERSION ".\n"
++		    "Compiled on " __DATE__ " for kernel %s"
++#ifdef CONFIG_SMP
++		    " (SMP)"
++#endif
++#ifdef MODVERSIONS
++		    " with versioned symbols"
++#endif
++		    ".\n", kernel_version
++		    );
+ }
+ 
+ static int __init snd_info_version_init(void)

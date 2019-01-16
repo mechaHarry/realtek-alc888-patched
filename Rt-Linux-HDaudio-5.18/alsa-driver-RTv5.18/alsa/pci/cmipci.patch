@@ -1,0 +1,33 @@
+--- ../alsa-kernel/pci/cmipci.c	2012-04-24 12:18:48.000000000 +0200
++++ cmipci.c	2012-04-24 12:30:30.000000000 +0200
+@@ -1,3 +1,4 @@
++#include "adriver.h"
+ /*
+  * Driver for C-Media CMI8338 and 8738 PCI soundcards.
+  * Copyright (c) 2000 by Takashi Iwai <tiwai@suse.de>
+@@ -3134,8 +3135,17 @@
+ 			val = 8762;
+ 			break;
+ 		default:
+-			switch ((pci->subsystem_vendor << 16) |
+-				pci->subsystem_device) {
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 3, 0)
++			val = (pci->subsystem_vendor << 16) | pci->subsystem_device;
++#else
++			{
++				u16 subsys_vendor, subsys_device;
++				pci_read_config_word(pci, PCI_SUBSYSTEM_VENDOR_ID, &subsys_vendor);
++				pci_read_config_word(pci, PCI_SUBSYSTEM_ID, &subsys_device);
++				val = (subsys_vendor << 16) | subsys_device;
++			}
++#endif
++			switch (val) {
+ 			case 0x13f69761:
+ 			case 0x584d3741:
+ 			case 0x584d3751:
+@@ -3410,3 +3420,5 @@
+ };
+ 	
+ module_pci_driver(cmipci_driver);
++
++EXPORT_NO_SYMBOLS;

@@ -1,0 +1,20 @@
+--- ../../alsa-kernel/pci/ymfpci/ymfpci_main.c	2012-07-20 08:49:11.000000000 +0000
++++ ymfpci_main.c	2012-07-20 12:22:14.000000000 +0000
+@@ -1,3 +1,8 @@
++#define __NO_VERSION__
++#include "adriver.h"
++#ifdef SND_COMPAT_DEV_PM_OPS
++#define dev_pm_ops snd_compat_dev_pm_ops
++#endif
+ /*
+  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
+  *  Routines for control of YMF724/740/744/754 chips
+@@ -2407,7 +2412,7 @@
+ 	chip->pci = pci;
+ 	chip->irq = -1;
+ 	chip->device_id = pci->device;
+-	chip->rev = pci->revision;
++	chip->rev = snd_pci_revision(pci);
+ 	chip->reg_area_phys = pci_resource_start(pci, 0);
+ 	chip->reg_area_virt = ioremap_nocache(chip->reg_area_phys, 0x8000);
+ 	pci_set_master(pci);

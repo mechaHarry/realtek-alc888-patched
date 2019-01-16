@@ -1,0 +1,55 @@
+--- ../alsa-kernel/core/hwdep.c	2011-11-08 07:59:20.000000000 +0100
++++ hwdep.c	2012-07-19 13:58:17.000000000 +0200
+@@ -1,3 +1,4 @@
++#include "adriver.h"
+ /*
+  *  Hardware dependent layer
+  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
+@@ -21,6 +22,7 @@
+ 
+ #include <linux/major.h>
+ #include <linux/init.h>
++#include <linux/smp_lock.h>
+ #include <linux/slab.h>
+ #include <linux/time.h>
+ #include <linux/mutex.h>
+@@ -314,12 +316,25 @@
+ 	return -ENOIOCTLCMD;
+ }
+ 
+-#ifdef CONFIG_COMPAT
++#if defined(CONFIG_COMPAT) && defined(CONFIG_SND_HAVE_NEW_IOCTL)
+ #include "hwdep_compat.c"
+ #else
+ #define snd_hwdep_ioctl_compat	NULL
+ #endif
+ 
++#ifndef CONFIG_SND_HAVE_NEW_IOCTL
++/* need to unlock BKL to allow preemption */
++static int snd_hwdep_ioctl_old(struct inode *inode, struct file * file,
++			       unsigned int cmd, unsigned long arg)
++{
++	int err;
++	unlock_kernel();
++	err = snd_hwdep_ioctl(file, cmd, arg);
++	lock_kernel();
++	return err;
++}
++#endif
++
+ /*
+ 
+  */
+@@ -333,8 +348,12 @@
+ 	.open =		snd_hwdep_open,
+ 	.release =	snd_hwdep_release,
+ 	.poll =		snd_hwdep_poll,
++#ifdef CONFIG_SND_HAVE_NEW_IOCTL
+ 	.unlocked_ioctl =	snd_hwdep_ioctl,
+ 	.compat_ioctl =	snd_hwdep_ioctl_compat,
++#else
++	.ioctl =	snd_hwdep_ioctl_old,
++#endif
+ 	.mmap =		snd_hwdep_mmap,
+ };
+ 
