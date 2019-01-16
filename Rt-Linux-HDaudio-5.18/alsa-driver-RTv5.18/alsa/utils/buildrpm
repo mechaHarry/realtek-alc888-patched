@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kversion=3.2.0-60-generic-pae
+kversion=4.18.0-13-generic
 source=.
 version=`cat $source/../version`
 package=$source/../../alsa-driver-$version.tar.bz2

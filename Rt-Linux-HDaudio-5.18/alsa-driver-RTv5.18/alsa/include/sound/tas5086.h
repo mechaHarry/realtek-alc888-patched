@@ -1,0 +1,1 @@
+../../alsa-kernel/include/tas5086.h

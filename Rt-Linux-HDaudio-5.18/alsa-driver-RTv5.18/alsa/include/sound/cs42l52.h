@@ -1,0 +1,1 @@
+../../alsa-kernel/include/cs42l52.h

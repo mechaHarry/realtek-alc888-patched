@@ -1,4 +1,4 @@
-#include "/lib/modules/3.2.0-60-generic-pae/build/include/linux/pci_ids.h"
+#include "/lib/modules/4.18.0-13-generic/build/include/linux/pci_ids.h"
 
 /* bt87x */
 #ifndef PCI_VENDOR_ID_BROOKTREE

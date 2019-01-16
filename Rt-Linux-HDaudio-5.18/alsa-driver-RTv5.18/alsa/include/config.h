@@ -4,7 +4,7 @@
  */
 
 /* ALSA section */
-#define CONFIG_SND_ISA 1
+/* #undef CONFIG_SND_ISA */
 #define CONFIG_SND_SEQUENCER_MODULE 1
 #define CONFIG_SND_OSSEMUL 1
 #define CONFIG_SND_MIXER_OSS_MODULE 1
@@ -21,17 +21,17 @@
 /* #undef CONFIG_SND_BIT32_EMUL_MODULE */
 /* #undef CONFIG_SND_RTCTIMER_MODULE */
 /* #undef CONFIG_SND_HPET_MODULE */
-#define CONFIG_SND_SEQ_DUMMY_MODULE 1
+/* #undef CONFIG_SND_SEQ_DUMMY_MODULE */
 
 /* card-dependent section */
 /* #undef CONFIG_SND_GENERIC_PM */
 
 /* build section */
-#define CONFIG_SND_KERNELDIR "/lib/modules/3.2.0-60-generic-pae/build"
+#define CONFIG_SND_KERNELDIR "/lib/modules/4.18.0-13-generic/build"
 #define CONFIG_ISAPNP_KERNEL 1
 #define CONFIG_PNP_KERNEL 1
-#define CONFIG_SND_ISAPNP 1
-#define CONFIG_SND_PNP 1
+/* #undef CONFIG_SND_ISAPNP */
+/* #undef CONFIG_SND_PNP */
 
 /* 2.4 kernels */
 /* #undef CONFIG_HAVE_OLD_REQUEST_MODULE */
@@ -39,7 +39,7 @@
 #define CONFIG_HAVE_SNPRINTF 1
 #define CONFIG_HAVE_VSNPRINTF 1
 #define CONFIG_HAVE_VMALLOC_TO_PAGE 1
-#define CONFIG_HAVE_PDE 1
+/* #undef CONFIG_HAVE_PDE */
 #define CONFIG_HAVE_TTY_COUNT_ATOMIC 1
 /* #undef CONFIG_HAVE_VIDEO_GET_DRVDATA */
 #define CONFIG_HAVE_DUMP_STACK 1
@@ -99,7 +99,7 @@
 #define CONFIG_HAVE_DEV_SET_NAME 1
 #define CONFIG_HAVE_PUT_PID 1
 #define CONFIG_HAVE_PID_VNR 1
-#define CONFIG_HAVE_SET_PAGES_ARRAY 1
+/* #undef CONFIG_HAVE_SET_PAGES_ARRAY */
 
 /* 3.x kernel */
 /* #undef CONFIG_VM_IOMAP_MEMORY */

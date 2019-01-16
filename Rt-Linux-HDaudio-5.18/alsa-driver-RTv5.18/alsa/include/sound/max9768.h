@@ -1,0 +1,1 @@
+../../alsa-kernel/include/max9768.h

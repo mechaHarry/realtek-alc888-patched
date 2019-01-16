@@ -1,0 +1,34 @@
+HEADERS=ac97_codec.h aci.h ad1816a.h ad1843.h adau1373.h aess.h ak4113.h ak4114.h ak4117.h ak4531_codec.h ak4641.h ak4xxx-adda.h alc5623.h asequencer.h asound.h asoundef.h atmel-abdac.h atmel-ac97c.h compress_driver.h control.h core.h cs4231-regs.h cs4271.h cs42l52.h cs8403.h cs8427.h da7213.h da9055.h designware_i2s.h dmaengine_pcm.h emu10k1.h emu10k1_synth.h emu8000.h emu8000_reg.h emux_legacy.h emux_synth.h es1688.h gus.h hda_hwdep.h hwdep.h i2c.h info.h initval.h jack.h l3.h max9768.h max98088.h max98090.h max98095.h memalloc.h minors.h mixer_oss.h mpu401.h opl3.h opl4.h pcm-indirect.h pcm.h pcm_oss.h pcm_params.h pt2258.h pxa2xx-lib.h rawmidi.h s3c24xx_uda134x.h sb.h sb16_csp.h seq_device.h seq_kernel.h seq_midi_emul.h seq_midi_event.h seq_oss.h seq_oss_legacy.h seq_virmidi.h sh_dac_audio.h sh_fsi.h simple_card.h snd_wavefront.h soc-dai.h soc-dapm.h soc-dpcm.h soc.h soundfont.h spear_dma.h spear_spdif.h sta32x.h tas5086.h tea575x-tuner.h tea6330t.h timer.h tlv.h tlv320aic32x4.h tlv320aic3x.h tlv320dac33-plat.h tpa6130a2-plat.h uda134x.h uda1380.h util_mem.h vx_core.h wavefront.h wm0010.h wm1250-ev1.h wm2000.h wm2200.h wm5100.h wm8903.h wm8904.h wm8955.h wm8960.h wm8962.h wm8993.h wm8996.h wm9081.h wm9090.h wss.h
+
+ac97_codec.h: ../../alsa-kernel/include/ac97_codec.h ac97_codec.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i ac97_codec.patch $@
+
+control.h: ../../alsa-kernel/include/control.h control.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i control.patch $@
+
+core.h: ../../alsa-kernel/include/core.h core.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i core.patch $@
+
+info.h: ../../alsa-kernel/include/info.h info.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i info.patch $@
+
+pcm.h: ../../alsa-kernel/include/pcm.h pcm.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i pcm.patch $@
+
+pcm_oss.h: ../../alsa-kernel/include/pcm_oss.h pcm_oss.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i pcm_oss.patch $@
+
+rawmidi.h: ../../alsa-kernel/include/rawmidi.h rawmidi.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i rawmidi.patch $@
+
+tea575x-tuner.h: ../../alsa-kernel/include/tea575x-tuner.h tea575x-tuner.patch
+	cp $(INCSRC)/$@ .
+	patch -p0 -i tea575x-tuner.patch $@
+
