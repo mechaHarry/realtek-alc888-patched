@@ -1062,7 +1062,8 @@ static void snd_info_version_read(struct snd_info_entry *entry, struct snd_info_
 	snd_iprintf(buffer,
 		    "Advanced Linux Sound Architecture Driver Version "
 		    CONFIG_SND_VERSION ".\n"
-		    "Compiled on " __DATE__ " for kernel %s"
+			/* Patch 9 */
+		    "Compiled for kernel %s"
 #ifdef CONFIG_SMP
 		    " (SMP)"
 #endif

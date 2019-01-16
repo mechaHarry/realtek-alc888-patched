@@ -79,3 +79,12 @@ Source:
 https://stackoverflow.com/questions/46302524/copy-to-user-undefined-in-linux-kernel-version-4-12-8
 Commit Message 7:
 Patch 8: Patching with more agnostic headers.
+
+Error 8:
+macro "__DATE__" might prevent reproducible builds
+Solution 8:
+Remove the call to the DATE macro, allowing future builds to be reproducable binaries.
+Source:
+https://stackoverflow.com/questions/52897563/why-doesnt-clang-like-the-date-macro
+Commit Message 8:
+Patch 9: Overriding __DATE__ macro for binary reproducability.
