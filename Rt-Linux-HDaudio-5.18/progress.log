@@ -30,3 +30,12 @@ Source:
 https://forum.manjaro.org/t/solved-error-with-rtl8812au/24066/4
 Commit Message 3:
 Patched pcm_oss.c to include signal.h when compatible.
+
+Error 4:
+unknown type name ‘wait_queue_t’
+Solution 4:
+Repeat of Solution 2.
+Source:
+Solution 2.
+Commit Message 4:
+Patched additional wait_queue naming schemes.
