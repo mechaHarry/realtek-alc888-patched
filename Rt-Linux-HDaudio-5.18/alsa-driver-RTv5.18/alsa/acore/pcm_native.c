@@ -48,6 +48,11 @@
 #include <dma-coherence.h>
 #endif
 
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
+
 /*
  *  Compatibility
  */
@@ -1500,7 +1505,7 @@ static int snd_pcm_drain(struct snd_pcm_substream *substream,
 	struct snd_card *card;
 	struct snd_pcm_runtime *runtime;
 	struct snd_pcm_substream *s;
-	wait_queue_t wait;
+	wait_queue_entry_t wait;
 	int result = 0;
 	int nonblock = 0;
 
@@ -2226,7 +2231,7 @@ static int snd_pcm_capture_open(struct inode *inode, struct file *file)
 static int snd_pcm_open(struct file *file, struct snd_pcm *pcm, int stream)
 {
 	int err;
-	wait_queue_t wait;
+	wait_queue_entry_t wait;
 
 	if (pcm == NULL) {
 		err = -ENODEV;

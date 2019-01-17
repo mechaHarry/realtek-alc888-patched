@@ -964,15 +964,15 @@ struct snd_timer_system_private {
 	unsigned long correction;
 };
 
-static void snd_timer_s_function(unsigned long data)
-{
-	struct snd_timer *timer = (struct snd_timer *)data;
-	struct snd_timer_system_private *priv = timer->private_data;
-	unsigned long jiff = jiffies;
-	if (time_after(jiff, priv->last_expires))
-		priv->correction += (long)jiff - (long)priv->last_expires;
-	snd_timer_interrupt(timer, (long)jiff - (long)priv->last_jiffies);
-}
+// static void snd_timer_s_function(unsigned long data)
+// {
+// 	struct snd_timer *timer = (struct snd_timer *)data;
+// 	struct snd_timer_system_private *priv = timer->private_data;
+// 	unsigned long jiff = jiffies;
+// 	if (time_after(jiff, priv->last_expires))
+// 		priv->correction += (long)jiff - (long)priv->last_expires;
+// 	snd_timer_interrupt(timer, (long)jiff - (long)priv->last_jiffies);
+// }
 
 static int snd_timer_s_start(struct snd_timer * timer)
 {
@@ -1039,10 +1039,11 @@ static int snd_timer_register_system(void)
 		snd_timer_free(timer);
 		return -ENOMEM;
 	}
-	// TODO : What is the update to the deprecate init_timer, and what are _fn and _flags?
-	init_timer(&priv->tlist);
-	priv->tlist.function = snd_timer_s_function;
-	priv->tlist.data = (unsigned long) timer;
+
+	timer_setup(&priv->tlist, 0, 0);
+	// init_timer(&priv->tlist);
+	// priv->tlist.function = &snd_timer_s_function;
+	// priv->tlist.data = (unsigned long) timer;
 	timer->private_data = priv;
 	timer->private_free = snd_timer_free_system;
 	return snd_timer_global_register(timer);

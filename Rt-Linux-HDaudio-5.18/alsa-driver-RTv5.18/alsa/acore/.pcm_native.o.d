@@ -1,5 +1,5 @@
-timer.o: \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/timer.c \
+pcm_native.o: \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/pcm_native.c \
  include/linux/kconfig.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/generated/autoconf.h \
  include/linux/compiler_types.h include/linux/compiler-gcc.h \
@@ -200,61 +200,76 @@ timer.o: \
  include/linux/task_io_accounting.h include/uapi/linux/rseq.h \
  arch/x86/include/asm/device.h include/linux/pm_wakeup.h \
  include/linux/gameport.h include/linux/slab.h include/linux/kasan.h \
- include/uapi/linux/gameport.h include/linux/delay.h \
- arch/x86/include/asm/delay.h include/asm-generic/delay.h \
+ include/uapi/linux/gameport.h include/linux/mm.h \
+ include/linux/percpu-refcount.h include/linux/bit_spinlock.h \
+ include/linux/shrinker.h include/linux/page_ext.h \
+ include/linux/stacktrace.h include/linux/stackdepot.h \
+ include/linux/page_ref.h include/linux/page-flags.h \
+ include/linux/memremap.h arch/x86/include/asm/pgtable.h \
+ arch/x86/include/asm/pgtable_64.h arch/x86/include/asm/pgtable-invert.h \
+ include/asm-generic/pgtable.h include/linux/huge_mm.h \
+ include/linux/sched/coredump.h include/linux/fs.h \
+ include/linux/wait_bit.h include/linux/kdev_t.h \
+ include/uapi/linux/kdev_t.h include/linux/dcache.h \
+ include/linux/rculist_bl.h include/linux/list_bl.h \
+ include/linux/lockref.h include/linux/stringhash.h include/linux/hash.h \
+ include/linux/path.h include/linux/list_lru.h include/linux/xarray.h \
+ include/linux/capability.h include/uapi/linux/capability.h \
+ include/linux/semaphore.h include/linux/fcntl.h \
+ include/uapi/linux/fcntl.h arch/x86/include/uapi/asm/fcntl.h \
+ include/uapi/asm-generic/fcntl.h include/uapi/linux/fiemap.h \
+ include/linux/migrate_mode.h include/linux/percpu-rwsem.h \
+ include/linux/rcuwait.h include/linux/rcu_sync.h \
+ include/linux/delayed_call.h include/linux/uuid.h \
+ include/uapi/linux/uuid.h include/linux/errseq.h include/linux/ioprio.h \
+ include/linux/sched/rt.h include/linux/iocontext.h \
+ include/uapi/linux/fs.h include/uapi/linux/limits.h \
+ include/linux/quota.h include/linux/percpu_counter.h \
+ include/uapi/linux/dqblk_xfs.h include/linux/dqblk_v1.h \
+ include/linux/dqblk_v2.h include/linux/dqblk_qtree.h \
+ include/linux/projid.h include/uapi/linux/quota.h \
+ include/linux/nfs_fs_i.h include/linux/vmstat.h \
+ include/linux/vm_event_item.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/linux/smp_lock.h \
+ include/linux/file.h include/linux/pm_qos.h include/linux/aio.h \
+ include/uapi/linux/aio_abi.h include/linux/dma-mapping.h \
+ include/linux/sizes.h include/linux/dma-debug.h \
+ include/linux/dma-direction.h include/linux/scatterlist.h \
+ arch/x86/include/asm/dma-mapping.h arch/x86/include/asm/swiotlb.h \
+ include/linux/swiotlb.h include/linux/dma-contiguous.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/core.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/timer.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/control.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/asound.h \
  /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/uapi/sound/asound.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/info.h \
+ include/linux/poll.h include/linux/uaccess.h \
+ arch/x86/include/asm/uaccess.h arch/x86/include/asm/smap.h \
+ arch/x86/include/asm/extable.h arch/x86/include/asm/uaccess_64.h \
+ include/uapi/linux/poll.h arch/x86/include/generated/uapi/asm/poll.h \
+ include/uapi/asm-generic/poll.h include/uapi/linux/eventpoll.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/pcm.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/memalloc.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/minors.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/pcm_oss.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/pcm_params.h \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/timer.h \
  include/linux/interrupt.h include/linux/irqreturn.h \
  include/linux/irqnr.h include/uapi/linux/irqnr.h include/linux/hardirq.h \
  include/linux/ftrace_irq.h include/linux/vtime.h \
  include/linux/context_tracking_state.h arch/x86/include/asm/irq.h \
  arch/x86/include/asm/sections.h include/asm-generic/sections.h \
- arch/x86/include/asm/extable.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/control.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/info.h \
- include/linux/poll.h include/linux/fs.h include/linux/wait_bit.h \
- include/linux/kdev_t.h include/uapi/linux/kdev_t.h \
- include/linux/dcache.h include/linux/rculist_bl.h \
- include/linux/list_bl.h include/linux/bit_spinlock.h \
- include/linux/lockref.h include/linux/stringhash.h include/linux/hash.h \
- include/linux/path.h include/linux/list_lru.h include/linux/shrinker.h \
- include/linux/xarray.h include/linux/capability.h \
- include/uapi/linux/capability.h include/linux/semaphore.h \
- include/linux/fcntl.h include/uapi/linux/fcntl.h \
- arch/x86/include/uapi/asm/fcntl.h include/uapi/asm-generic/fcntl.h \
- include/uapi/linux/fiemap.h include/linux/migrate_mode.h \
- include/linux/percpu-rwsem.h include/linux/rcuwait.h \
- include/linux/rcu_sync.h include/linux/delayed_call.h \
- include/linux/uuid.h include/uapi/linux/uuid.h include/linux/errseq.h \
- include/linux/ioprio.h include/linux/sched/rt.h \
- include/linux/iocontext.h include/uapi/linux/fs.h \
- include/uapi/linux/limits.h include/linux/quota.h \
- include/linux/percpu_counter.h include/uapi/linux/dqblk_xfs.h \
- include/linux/dqblk_v1.h include/linux/dqblk_v2.h \
- include/linux/dqblk_qtree.h include/linux/projid.h \
- include/uapi/linux/quota.h include/linux/nfs_fs_i.h \
- include/linux/uaccess.h arch/x86/include/asm/uaccess.h \
- arch/x86/include/asm/smap.h arch/x86/include/asm/uaccess_64.h \
- include/uapi/linux/poll.h arch/x86/include/generated/uapi/asm/poll.h \
- include/uapi/asm-generic/poll.h include/uapi/linux/eventpoll.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/minors.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/include/sound/initval.h \
  include/linux/sched/signal.h include/linux/signal.h \
  include/linux/sched/jobctl.h include/linux/sched/task.h \
  include/linux/cred.h include/linux/key.h include/linux/assoc_array.h \
  include/linux/selinux.h include/linux/sched/user.h \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/timer_compat.c \
- /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/../alsa-kernel/core/timer_compat.c \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/pcm_compat.c \
+ /home/harrison/gits/realtek-alc888-patched/Rt-Linux-HDaudio-5.18/alsa-driver-RTv5.18/alsa/acore/../alsa-kernel/core/pcm_compat.c \
  include/linux/compat.h include/linux/compat_time.h \
  include/linux/socket.h arch/x86/include/uapi/asm/socket.h \
  include/uapi/asm-generic/socket.h arch/x86/include/uapi/asm/sockios.h \
  include/uapi/asm-generic/sockios.h include/uapi/linux/sockios.h \
  include/linux/uio.h include/uapi/linux/uio.h include/uapi/linux/socket.h \
  include/uapi/linux/if.h include/uapi/linux/libc-compat.h \
- include/uapi/linux/hdlc/ioctl.h include/uapi/linux/aio_abi.h \
- arch/x86/include/asm/compat.h include/linux/sched/task_stack.h \
- include/uapi/linux/magic.h arch/x86/include/asm/user32.h \
- arch/x86/include/asm/syscall_wrapper.h
+ include/uapi/linux/hdlc/ioctl.h arch/x86/include/asm/compat.h \
+ include/linux/sched/task_stack.h include/uapi/linux/magic.h \
+ arch/x86/include/asm/user32.h arch/x86/include/asm/syscall_wrapper.h
